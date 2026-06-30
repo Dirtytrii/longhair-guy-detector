@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 
 import {
   ANSWER_OPTIONS,
+  type AnswerMap,
   QUESTIONS,
+  type RawScore,
   RESULT_CODES,
   answersForResultCode,
   scoreAnswers,
@@ -20,13 +22,13 @@ describe("longhair guy scoring", () => {
   });
 
   it("resolves all NPC answers to OHBG through tie-break agree poles", () => {
-    const answers = Object.fromEntries(QUESTIONS.map((question) => [question.id, 0]));
+    const answers = neutralAnswers();
 
     expect(scoreAnswers(answers).code).toBe("OHBG");
   });
 
   it("uses the final question of an axis as the tie-break when the axis total is zero", () => {
-    const answers = Object.fromEntries(QUESTIONS.map((question) => [question.id, 0]));
+    const answers = neutralAnswers();
     answers[1] = 2;
     answers[6] = 2;
 
@@ -46,3 +48,7 @@ describe("longhair guy scoring", () => {
     expect(() => scoreAnswers({ 1: 2 })).toThrow(/24/);
   });
 });
+
+function neutralAnswers(): AnswerMap {
+  return Object.fromEntries(QUESTIONS.map((question) => [question.id, 0 as RawScore]));
+}
