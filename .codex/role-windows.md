@@ -40,6 +40,7 @@
 - 2026-06-30：架构/CTO 窗口 `019f18f0-959a-75e0-8c8b-a47b19261fb0` 已完成方案，新增 `docs/architecture/mobile-mvp-technical-roadmap.md`；确认继续 React / Vite / TypeScript / Tailwind 静态 H5 路线，CodeGraph 工具可用但未初始化，评分零分归类建议采用 tie-break 题 `agreePole` 兜底（全 NPC 得到 `OHBG`），下游建议按 UI/Frontend、开发、测试、QA 派发，Cloudflare Pages 作为首发部署路线。需总控/用户确认：是否允许初始化 CodeGraph 并新增 `.gitignore`、答题选项正式文案口径、首版分享卡是否必须纳入 image2 图卡资产。
 - 2026-06-30：总控验收架构方案并拍板 3 个待决策点：允许初始化 CodeGraph 并新增 `.gitignore` 忽略 `.codegraph/`；答题选项正式文案使用新版 DOCX 的 `拉完了 / 有点拉 / NPC / 人上人 / 夯`；首版必须有本地 DOM 分享卡预览和 PNG 保存，image2 图卡按本地静态资产流程，不允许浏览器运行模型 API 或暴露凭据。
 - 2026-06-30：因用户要求今晚首发上线，总控压缩执行链路，创建开发 + UI/Frontend 首发执行负责人窗口 `019f193a-669b-7b63-9828-496013c03bb0`，负责实现 React/Vite/Tailwind 静态 H5、首页/答题页视觉还原、评分、结果页、分享卡导出、构建验证和提交；实现回调后再立即派测试/QA/运维门禁。
+- 2026-06-30：架构/CTO 窗口接收今晚首发监督位：等待开发 + UI/Frontend 执行负责人回调后，复核技术风险、评分/分享卡/隐私/构建证据是否满足架构门禁，并向总控建议是否补派测试、QA 或运维；架构本身不接手实现、不部署、不写凭据。
 
 ## 压缩交接卡
 
