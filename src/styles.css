@@ -732,6 +732,16 @@ button {
   clip-path: polygon(0 0, 100% 8%, 84% 100%, 0 92%);
 }
 
+.phase-result .decor-paper.top-left {
+  top: 0.75rem;
+  left: 1.05rem;
+  width: 6.3rem;
+  min-height: 2.6rem;
+  padding: 0.5rem 0.58rem;
+  font-size: 0.55rem;
+  opacity: 0.72;
+}
+
 .decor-paper.bottom-right {
   right: -0.9rem;
   bottom: -3.6rem;

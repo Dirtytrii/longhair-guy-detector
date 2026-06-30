@@ -84,6 +84,7 @@ function App() {
     setScoreResult(null);
     setCurrentIndex(0);
     setShowShare(false);
+    clearResultUrl();
     setPhase("quiz");
   }
 
@@ -157,7 +158,7 @@ function App() {
 
   return (
     <main className="app-root">
-      <section className="phone-stage" aria-live="polite">
+      <section className={`phone-stage phase-${phase}`} aria-live="polite">
         <Decorations />
 
         {phase === "home" && (
@@ -508,6 +509,13 @@ function getSharedResultCode(): ResultCode | null {
 function setResultUrl(code: ResultCode) {
   if (typeof window === "undefined") return;
   window.history.replaceState(null, "", buildResultUrl(code));
+}
+
+function clearResultUrl() {
+  if (typeof window === "undefined") return;
+  const url = new URL(window.location.href);
+  url.searchParams.delete("result");
+  window.history.replaceState(null, "", url.toString());
 }
 
 function buildResultUrl(code: ResultCode) {
