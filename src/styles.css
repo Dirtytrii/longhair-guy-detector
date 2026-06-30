@@ -70,7 +70,7 @@ button {
 
 .screen {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   min-height: 100dvh;
   padding: 3.25rem 1.75rem 2rem;
 }
@@ -132,16 +132,16 @@ button {
 }
 
 .hero-claim {
-  margin: 2.3rem 0 0;
+  margin: 1.7rem 0 0;
   color: #b94b43;
   font-family: STSong, SimSun, serif;
-  font-size: 1.72rem;
+  font-size: 1.56rem;
   font-weight: 800;
   line-height: 1.52;
 }
 
 .hero-copy {
-  margin: 1.8rem 0 0;
+  margin: 1.18rem 0 0;
   color: rgba(214, 206, 189, 0.82);
   font-size: 1rem;
   line-height: 1.8;
@@ -158,8 +158,8 @@ button {
 
 .primary-button {
   width: 100%;
-  min-height: 4.95rem;
-  margin-top: 2.25rem;
+  min-height: 4.42rem;
+  margin-top: 1.55rem;
   padding: 0 1.55rem;
   display: inline-flex;
   align-items: center;
@@ -189,7 +189,7 @@ button {
 }
 
 .link-button {
-  margin-top: 1.55rem;
+  margin-top: 1.05rem;
   padding: 0;
   border: 0;
   display: inline-flex;
@@ -213,19 +213,19 @@ button {
 }
 
 .fine-print {
-  margin: 1.7rem 0 0;
+  margin: 1.05rem 0 0;
   color: rgba(214, 206, 189, 0.56);
   font-size: 0.88rem;
   line-height: 1.7;
 }
 
 .quiz-screen {
-  padding-top: 3rem;
+  padding-top: 2.15rem;
 }
 
 .quiz-header {
   display: grid;
-  gap: 1.35rem;
+  gap: 0.95rem;
   text-align: center;
 }
 
@@ -246,7 +246,7 @@ button {
 .question-count {
   color: #b7483e;
   font-family: Georgia, serif;
-  font-size: 1.85rem;
+  font-size: 1.65rem;
   font-style: italic;
 }
 
@@ -262,7 +262,7 @@ button {
 }
 
 .question-block {
-  margin-top: 3rem;
+  margin-top: 1.85rem;
   text-align: center;
 }
 
@@ -275,28 +275,28 @@ button {
 }
 
 .question-block h1 {
-  margin: 1.35rem 0 0;
+  margin: 1rem 0 0;
   color: #ded5c1;
   font-family: STSong, SimSun, serif;
-  font-size: 2.48rem;
+  font-size: 2.08rem;
   font-weight: 900;
-  line-height: 1.38;
+  line-height: 1.3;
 }
 
 .question-subtitle {
-  margin: 1.1rem 0 0;
+  margin: 0.75rem 0 0;
   color: rgba(214, 206, 189, 0.6);
   font-size: 0.98rem;
 }
 
 .answer-list {
   display: grid;
-  gap: 0.8rem;
-  margin-top: 2.05rem;
+  gap: 0.55rem;
+  margin-top: 1.25rem;
 }
 
 .answer-card {
-  min-height: 4.05rem;
+  min-height: 3.38rem;
   width: 100%;
   padding: 0 1.2rem;
   display: grid;
@@ -307,7 +307,7 @@ button {
   box-shadow: inset 0 0 0 1px rgba(214, 206, 189, 0.08);
   text-align: left;
   font-family: STSong, SimSun, serif;
-  font-size: 1.34rem;
+  font-size: 1.14rem;
   font-weight: 800;
 }
 
@@ -340,7 +340,7 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-top: 2.2rem;
+  margin-top: 1.1rem;
   color: rgba(214, 206, 189, 0.46);
   font-size: 0.88rem;
 }
@@ -563,7 +563,7 @@ button {
 }
 
 .share-card h3 {
-  margin: 3.8rem 0 0.2rem;
+  margin: 3.1rem 0 0.2rem;
   color: #b7483e;
   font-family: STSong, SimSun, serif;
   font-size: 1.4rem;
@@ -573,22 +573,22 @@ button {
   margin: 0;
   color: #ded5c1;
   font-family: STSong, SimSun, serif;
-  font-size: 3rem;
+  font-size: 2.62rem;
   line-height: 1.08;
 }
 
 .share-card-scene,
 .share-card-line {
-  max-width: 16rem;
+  max-width: 14rem;
   color: rgba(214, 206, 189, 0.72);
-  line-height: 1.65;
+  line-height: 1.5;
 }
 
 .share-card-line {
-  margin-top: 1.1rem;
+  margin-top: 0.9rem;
   color: #b7483e;
   font-family: STSong, SimSun, serif;
-  font-size: 1.2rem;
+  font-size: 1.02rem;
   font-weight: 800;
 }
 
@@ -597,8 +597,9 @@ button {
   left: 1.6rem;
   right: 1.6rem;
   bottom: 1.6rem;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  gap: 0.28rem;
+  justify-items: start;
 }
 
 .notice {
@@ -660,6 +661,7 @@ button {
 
 .decorations {
   position: absolute;
+  z-index: 0;
   inset: 0;
   pointer-events: none;
 }
@@ -706,7 +708,7 @@ button {
 
 .decor-paper.bottom-right {
   right: -0.9rem;
-  bottom: 2.5rem;
+  bottom: -3.6rem;
   width: 7.8rem;
   height: 6.6rem;
   transform: rotate(9deg);
@@ -775,24 +777,24 @@ button {
   }
 
   .home-screen {
-    padding-top: 9.5rem;
+    padding-top: 9rem;
   }
 
   .title-lockup {
-    font-size: 4.25rem;
+    font-size: 4.05rem;
   }
 
   .hero-claim {
-    font-size: 1.48rem;
+    font-size: 1.34rem;
   }
 
   .question-block h1 {
-    font-size: 2.14rem;
+    font-size: 1.92rem;
   }
 
   .answer-card {
-    min-height: 3.72rem;
-    font-size: 1.18rem;
+    min-height: 3.24rem;
+    font-size: 1.06rem;
   }
 
   .result-screen h1 {

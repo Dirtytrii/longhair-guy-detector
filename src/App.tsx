@@ -90,14 +90,28 @@ function App() {
     setCurrentIndex((index) => Math.max(0, index - 1));
   }
 
+  function openSharePanel() {
+    setShowShare(true);
+    window.setTimeout(() => {
+      document.querySelector('[data-testid="share-panel"]')?.scrollIntoView({ block: "start" });
+    }, 80);
+  }
+
   async function saveShareCard() {
     if (!shareCardRef.current || !resultContent) return;
 
     try {
       const dataUrl = await toPng(shareCardRef.current, {
+        width: 360,
+        height: 450,
         pixelRatio: 3,
         cacheBust: true,
         backgroundColor: "#15130f",
+        style: {
+          width: "360px",
+          height: "450px",
+          maxWidth: "none",
+        },
       });
       const link = document.createElement("a");
       link.download = `longhair-guy-${resultContent.code}.png`;
@@ -148,7 +162,7 @@ function App() {
             shareLine={shareLine}
             notice={notice}
             shareCardRef={shareCardRef}
-            onShowShare={() => setShowShare(true)}
+            onShowShare={openSharePanel}
             onSave={saveShareCard}
             onCopy={copyResultLink}
             onRestart={startQuiz}
@@ -163,7 +177,7 @@ function App() {
 
 function HomeScreen({ onStart, onAbout }: { onStart: () => void; onAbout: () => void }) {
   return (
-    <div className="screen home-screen">
+    <div className="screen home-screen" data-testid="home-screen">
       <div className="top-note">VISION IS A KNOT.</div>
       <div className="side-slogan">世界是一团线，而你在其中</div>
       <div className="title-lockup" aria-label="长发男鉴定器">
@@ -179,7 +193,7 @@ function HomeScreen({ onStart, onAbout }: { onStart: () => void; onAbout: () => 
       <p className="hero-copy">
         24 个问题，测出你此刻更常使用哪种理解世界的视角。
       </p>
-      <button className="primary-button" type="button" onClick={onStart}>
+      <button className="primary-button" data-testid="start-quiz" type="button" onClick={onStart}>
         <span>开始鉴定</span>
         <ArrowRight aria-hidden="true" size={30} />
       </button>
@@ -211,13 +225,15 @@ function QuizScreen({
   const progress = ((currentIndex + 1) / QUESTIONS.length) * 100;
 
   return (
-    <div className="screen quiz-screen">
+    <div className="screen quiz-screen" data-testid="quiz-screen">
       <header className="quiz-header">
         <div className="brand-small">
           <span>长发男鉴定器</span>
           <small>LONG HAIR GUY DETECTOR</small>
         </div>
-        <div className="question-count">{String(currentIndex + 1).padStart(2, "0")} / 24</div>
+        <div className="question-count" data-testid="quiz-count">
+          {String(currentIndex + 1).padStart(2, "0")} / 24
+        </div>
         <div className="progress-track">
           <span style={{ width: `${progress}%` }} />
         </div>
@@ -294,7 +310,7 @@ function ResultScreen({
   const result = getResultByCode(scoreResult.code);
 
   return (
-    <div className="screen result-screen">
+    <div className="screen result-screen" data-testid="result-screen">
       <p className="result-prefix">你的精神长发男类型是：</p>
       <h1>{result.shortName}</h1>
       <p className="scene-name">{result.sceneName}</p>
@@ -328,7 +344,7 @@ function ResultScreen({
       </section>
 
       <div className="action-row">
-        <button className="primary-button small" type="button" onClick={onShowShare}>
+        <button className="primary-button small" data-testid="open-share-card" type="button" onClick={onShowShare}>
           <Share2 aria-hidden="true" size={20} />
           <span>生成图卡</span>
         </button>
@@ -339,11 +355,11 @@ function ResultScreen({
       </div>
 
       {showShare && (
-        <section className="share-panel" aria-label="分享卡预览">
+        <section className="share-panel" data-testid="share-panel" aria-label="分享卡预览">
           <h2>分享卡预览</h2>
           <ShareCard refObject={shareCardRef} code={scoreResult.code} shareLine={shareLine} />
           <div className="action-row compact">
-            <button className="primary-button small" type="button" onClick={onSave}>
+            <button className="primary-button small" data-testid="save-share-card" type="button" onClick={onSave}>
               <Download aria-hidden="true" size={19} />
               <span>保存 PNG</span>
             </button>
