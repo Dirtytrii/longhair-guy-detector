@@ -6,7 +6,7 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | 总控 | 已建立 | 019f17ca-0d15-77a3-8d57-1905c94bf7bd | 用户直接对接；原发起窗口 `019f17c5-01a6-74d0-a5b5-af0e7c6784c3` 不再交互 | 已研究设计 PDF，明确 MVP、风险、验收信号和下一角色路由 | 由当前总控继续对接用户，建议派架构/CTO 做技术方案和执行拆分 | L1 总控研究完成，待当前总控/用户决策 |
 | 架构 | 已建立 | 019f18f0-959a-75e0-8c8b-a47b19261fb0 | 总控/用户 | CTO 技术拆解、开发/UI/测试/QA/安全/DBA/运维闭环；当前总控不再接续架构执行 | 研究新版移动端 DOCX、确认技术路线、评分实现、Cloudflare 上线和下游执行拆分 | 架构拆解进行中 |
-| 内容主编 | 已建立 | 019f18ef-e4fb-7233-af41-0897febd7e39 | 总控 | 结果命名、判词、长描述、图卡文案、毒舌尺度和内容一致性 | 接收 16 种短类型名暂定版，继续细化判词、场景长名和 image2 图卡提示词 | 内容拆解进行中 |
+| 内容主编 | 内容完成 | 019f18ef-e4fb-7233-af41-0897febd7e39 | 总控 `019f17ca-0d15-77a3-8d57-1905c94bf7bd` | 已整理 16 型短名、场景长名、判词、长描述、随机文案池、危险倾向、精神同伙 / 推荐阅读和 image2 图卡规则；不写代码、不派开发 | 待总控 / 用户确认 `ATDF`、`AHDF`、`OTDG`、`OTBG`、`OHDG`、`OHBG` 的命名或判词风险点，然后回流架构 / UI / 开发实现数据结构 | 内容完成，待总控/用户验收 |
 | 开发 | 待确认 | 待确认 | 架构 | 代码实现和验证 | 待确认 | 待确认 |
 | UI/PPT | 待确认 | 待确认 | 架构/内容主编 | UI/Frontend、PPT、视觉资产 | 待确认 | 待确认 |
 | 测试 | 待确认 | 待确认 | 架构 | 测试用例、测试报告、压测/性能/并发验证 | 待确认 | 待确认 |
@@ -33,12 +33,13 @@
 - 2026-06-30：用户暂定 16 种短类型名版本，并要求按角色边界继续推进；当前总控已记录命名决策到 `docs/product/result-type-naming.md`，后续文案细化应交由内容主编，技术/UI/实现拆分应交由架构/CTO。
 - 2026-06-30：角色纠偏：总控收回到决策、派发、风险和验收层，不再直接承担内容主编、架构、UI/Frontend、开发、测试或 QA 的执行工作；后续优先派内容主编和架构/CTO。
 - 2026-06-30：总控已直接创建内容主编窗口 `019f18ef-e4fb-7233-af41-0897febd7e39`，要求其围绕 16 种短类型名整理正式内容系统、毒舌尺度、随机文案池和 image2 图卡 prompt，完成后回调当前总控/用户。
+- 2026-06-30：内容主编窗口 `019f18ef-e4fb-7233-af41-0897febd7e39` 已完成内容整理，新增 `docs/product/result-content-system.md`；本轮只做内容规格，不写代码。需总控 / 用户确认的点：`ATDF` 的“天台”自伤联想边界、`AHDF` 锋利度、`OTDG` 稽查感、`OTBG` 普通度、`OHDG` 老派含义和 `OHBG` 泛化程度。
 - 2026-06-30：总控已直接创建架构/CTO 窗口 `019f18f0-959a-75e0-8c8b-a47b19261fb0`，要求其输出技术路线、CodeGraph 状态、有限开源扫描、评分/数据结构、UI/开发/测试/QA/Cloudflare 路线和提交策略，完成后回调当前总控/用户。
 
 ## 压缩交接卡
 
-- 最近摘要：仓库仍处于前期规划/资产阶段；原 PDF 已研究，新版移动端 DOCX 已抽取题库、评分规则、结果表和 16 段说明；用户已暂定 16 种短类型名，当前命名口径记录在 `docs/product/result-type-naming.md`。
+- 最近摘要：仓库仍处于前期规划/资产阶段；原 PDF 已研究，新版移动端 DOCX 已抽取题库、评分规则、结果表和 16 段说明；用户已暂定 16 种短类型名，当前命名口径记录在 `docs/product/result-type-naming.md`；内容主编已新增 `docs/product/result-content-system.md`，整理 16 型正式内容系统、危险倾向、精神同伙 / 推荐阅读策略和 image2 图卡 prompt 统一规则。
 - 关键决策：产品保持娱乐向哲学气质测试，不做心理诊断；MVP 仍是移动端优先网页测试、24 题五级量表、四轴评分、16 型结果、结果页和分享卡；结果文案可锋利、可轻微毒舌/羞辱，但不得变成心理诊断或权威人格判断；分享图卡走 image2 生成；首发部署目标为 Cloudflare；允许商业化，但 MVP 不接广告、不收费，先验证传播量、完成率、分享率和结果页停留；Loop 继续保持 L1/L2 之间，由总控派负责人层，不再由总控直接执行内容或技术工作。
-- 当前证据：`C:\Users\12156\Downloads\长发男鉴定器正式版设计文档.pdf`；`C:\Users\12156\Downloads\长发男鉴定器移动端正式设计文档.docx`；`docs/product/result-type-naming.md`；`.codex/role-windows.md`；`AGENTS.md`；`docs/design/longhair-guy-ui-concept-draft.png`；`git status --short --branch`；CodeGraph 检查显示工具可用但项目未初始化 `.codegraph`。
-- 下一步：等待内容主编窗口 `019f18ef-e4fb-7233-af41-0897febd7e39` 和架构/CTO 窗口 `019f18f0-959a-75e0-8c8b-a47b19261fb0` 回调；用户确认后再进入 UI/Frontend、开发、测试、QA 执行。
+- 当前证据：`C:\Users\12156\Downloads\长发男鉴定器正式版设计文档.pdf`；`C:\Users\12156\Downloads\长发男鉴定器移动端正式设计文档.docx`；`docs/product/result-type-naming.md`；`docs/product/result-content-system.md`；`.codex/role-windows.md`；`AGENTS.md`；`docs/design/longhair-guy-ui-concept-draft.png`；`git status --short --branch`；CodeGraph 检查显示工具可用但项目未初始化 `.codegraph`。
+- 下一步：总控 / 用户先确认内容主编列出的命名风险点；如无调整，架构 / CTO 可把 `docs/product/result-type-naming.md` 与 `docs/product/result-content-system.md` 作为结果数据结构和图卡 prompt 的内容源，继续推进技术路线、UI/Frontend、开发、测试、QA 和 Cloudflare 部署拆分。
 - 新窗口接续提示：优先复用总控线程 `019f17ca-0d15-77a3-8d57-1905c94bf7bd`，不要重复创建总控；内容主编窗口 `019f18ef-e4fb-7233-af41-0897febd7e39` 和架构/CTO 窗口 `019f18f0-959a-75e0-8c8b-a47b19261fb0` 完成、阻塞或需决策时回调当前总控/用户，不再回调原发起窗口 `019f17c5-01a6-74d0-a5b5-af0e7c6784c3`；当前总控不得继续兼任架构、内容主编、UI/Frontend、开发、测试或 QA。
