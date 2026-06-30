@@ -2,6 +2,33 @@
 
 更新时间：2026-07-01
 
+## 2026-07-01 QA 后首发小修复验
+
+总控不接受的两个用户可见小瑕疵已完成小修并复验通过：
+
+- 结果页顶部装饰贴纸不再压到结果前缀 / 标题区域。
+- 从 `?result=OHBG` 点击“再测一次”后，地址栏会清掉旧 `result` 参数；刷新当前地址不会回到旧结果。
+
+复验证据：
+
+- 详见 `docs/verification/qa-post-polish-2026-07-01.md`。
+- 截图目录：`C:\Users\12156\AppData\Local\Temp\longhair-guy-detector-first-polish-2026-07-01`。
+- `result-390x844.png`：390x844，`document.scrollWidth = 390`，贴纸与前缀 / 标题不相交。
+- `result-430x932.png`：430x932，`document.scrollWidth = 430`，贴纸与前缀 / 标题不相交。
+- `result-1280x900.png`：1280x900，贴纸与前缀 / 标题不相交。
+- `result-share-390x844.png`：390x844，分享卡无横向溢出 / 文字重叠回归。
+- `result-share-430x932.png`：430x932，分享卡无横向溢出 / 文字重叠回归。
+- `share-card-download.png`：1080x1350。
+- Playwright `console` warning/error 与 `pageerror` 均为空。
+
+命令复验：
+
+| 命令 | 结果 |
+| --- | --- |
+| `npm test -- --run` | 通过，3 个测试文件，12 项测试 |
+| `npm run typecheck` | 通过 |
+| `npm run build` | 通过 |
+
 ## 2026-07-01 分享卡返工复验
 
 总控返工问题：
