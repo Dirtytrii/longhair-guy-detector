@@ -7,7 +7,7 @@ import {
   RotateCcw,
   Share2,
 } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { GLOBAL_COPY_POOL, getResultByCode } from "./data/results";
 import {
@@ -49,6 +49,7 @@ function App() {
   const [showAbout, setShowAbout] = useState(false);
   const [showShare, setShowShare] = useState(false);
   const [notice, setNotice] = useState("");
+  const sharePanelRef = useRef<HTMLElement>(null);
   const shareCardRef = useRef<HTMLDivElement>(null);
 
   const currentQuestion = QUESTIONS[currentIndex];
@@ -57,6 +58,26 @@ function App() {
     const source = resultContent?.copyPool ?? GLOBAL_COPY_POOL;
     return source[Math.abs((scoreResult?.code.charCodeAt(0) ?? 0) + currentIndex) % source.length];
   }, [currentIndex, resultContent?.copyPool, scoreResult?.code]);
+
+  useEffect(() => {
+    if (!showShare) return undefined;
+
+    let timer: number | undefined;
+    const scrollSharePanel = () => {
+      sharePanelRef.current?.scrollIntoView({ block: "start", inline: "nearest" });
+    };
+    const frame = window.requestAnimationFrame(() => {
+      scrollSharePanel();
+      timer = window.setTimeout(scrollSharePanel, 140);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      if (timer !== undefined) {
+        window.clearTimeout(timer);
+      }
+    };
+  }, [showShare]);
 
   function startQuiz() {
     setAnswers({});
@@ -92,9 +113,6 @@ function App() {
 
   function openSharePanel() {
     setShowShare(true);
-    window.setTimeout(() => {
-      document.querySelector('[data-testid="share-panel"]')?.scrollIntoView({ block: "start" });
-    }, 80);
   }
 
   async function saveShareCard() {
@@ -111,6 +129,8 @@ function App() {
           width: "360px",
           height: "450px",
           maxWidth: "none",
+          aspectRatio: "auto",
+          overflow: "hidden",
         },
       });
       const link = document.createElement("a");
@@ -161,6 +181,7 @@ function App() {
             showShare={showShare}
             shareLine={shareLine}
             notice={notice}
+            sharePanelRef={sharePanelRef}
             shareCardRef={shareCardRef}
             onShowShare={openSharePanel}
             onSave={saveShareCard}
@@ -291,6 +312,7 @@ function ResultScreen({
   showShare,
   shareLine,
   notice,
+  sharePanelRef,
   shareCardRef,
   onShowShare,
   onSave,
@@ -301,6 +323,7 @@ function ResultScreen({
   showShare: boolean;
   shareLine: string;
   notice: string;
+  sharePanelRef: React.RefObject<HTMLElement>;
   shareCardRef: React.RefObject<HTMLDivElement>;
   onShowShare: () => void;
   onSave: () => void;
@@ -355,7 +378,7 @@ function ResultScreen({
       </div>
 
       {showShare && (
-        <section className="share-panel" data-testid="share-panel" aria-label="分享卡预览">
+        <section className="share-panel" data-testid="share-panel" aria-label="分享卡预览" ref={sharePanelRef}>
           <h2>分享卡预览</h2>
           <ShareCard refObject={shareCardRef} code={scoreResult.code} shareLine={shareLine} />
           <div className="action-row compact">
