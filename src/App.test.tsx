@@ -1,12 +1,21 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it } from "vitest";
+import { toPng } from "html-to-image";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import App from "./App";
+
+vi.mock("html-to-image", () => ({
+  toPng: vi.fn(),
+}));
+
+const mockedToPng = vi.mocked(toPng);
 
 describe("mobile quiz flow", () => {
   beforeEach(() => {
     window.history.replaceState(null, "", "/");
+    mockedToPng.mockReset();
+    mockedToPng.mockResolvedValue("data:image/png;base64,iVBORw0KGgo=");
   });
 
   it("lets a user complete 24 NPC answers and reach the share-card result view", async () => {
@@ -43,5 +52,34 @@ describe("mobile quiz flow", () => {
 
     expect(screen.getByText("01 / 24")).toBeInTheDocument();
     expect(new URL(window.location.href).searchParams.has("result")).toBe(false);
+  });
+
+  it("saves the share card with a QR code and a downloadable filename", async () => {
+    const user = userEvent.setup();
+    const clickedAnchors: HTMLAnchorElement[] = [];
+    const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, "click");
+    clickSpy.mockImplementation(function captureClick(this: HTMLAnchorElement) {
+      clickedAnchors.push(this);
+    });
+    window.history.replaceState(null, "", "/?result=OHBG");
+
+    render(<App />);
+
+    expect(await screen.findByText("人间烟火长发男")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: /生成图卡/ }));
+
+    expect(screen.getByLabelText(/扫码进入 https:\/\/longhair-guy-detector\.pages\.dev\//)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: /保存图片/ }));
+
+    await waitFor(() => expect(mockedToPng).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(clickSpy).toHaveBeenCalledTimes(1));
+
+    expect(clickedAnchors[0]?.download).toBe("longhair-guy-OHBG.png");
+    expect(clickedAnchors[0]?.href).toMatch(/^(data:image\/png|blob:)/);
+    expect(screen.getByText("已开始下载 1080x1350 PNG。")).toBeInTheDocument();
+
+    clickSpy.mockRestore();
   });
 });

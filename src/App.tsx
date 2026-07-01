@@ -39,6 +39,8 @@ const LOADING_LINES = [
 
 const RESULT_PORTRAIT_SRC = "/assets/result-portrait-v2.png";
 const SHARE_PORTRAIT_SRC = "/assets/share-card-portrait-v2.png";
+const SITE_URL = "https://longhair-guy-detector.pages.dev/";
+const SITE_QR_SRC = "/assets/site-qr.png";
 
 function App() {
   const sharedCode = getSharedResultCode();
@@ -69,7 +71,7 @@ function App() {
 
     let timer: number | undefined;
     const scrollSharePanel = () => {
-      sharePanelRef.current?.scrollIntoView({ block: "start", inline: "nearest" });
+      sharePanelRef.current?.scrollIntoView?.({ block: "start", inline: "nearest" });
     };
     const frame = window.requestAnimationFrame(() => {
       scrollSharePanel();
@@ -145,11 +147,8 @@ function App() {
           overflow: "hidden",
         },
       });
-      const link = document.createElement("a");
-      link.download = `longhair-guy-${resultContent.code}.png`;
-      link.href = dataUrl;
-      link.click();
-      setNotice("已生成 1080x1350 PNG。");
+      await downloadImage(dataUrl, `longhair-guy-${resultContent.code}.png`);
+      setNotice("已开始下载 1080x1350 PNG。");
     } catch {
       setNotice("保存失败，请稍后重试。");
     }
@@ -496,8 +495,14 @@ function ShareCard({
         })}
       </div>
       <div className="share-card-footer">
-        <span>{scoreResult.code}</span>
-        <span>娱乐测试，不构成人格诊断</span>
+        <div>
+          <span>{scoreResult.code}</span>
+          <span>娱乐测试，不构成人格诊断</span>
+        </div>
+        <div className="share-card-qr" aria-label={`扫码进入 ${SITE_URL}`}>
+          <img src={SITE_QR_SRC} alt="" />
+          <span>扫码来测</span>
+        </div>
       </div>
     </div>
   );
@@ -577,6 +582,31 @@ function buildResultUrl(code: ResultCode) {
   const url = new URL(window.location.href);
   url.searchParams.set("result", code);
   return url.toString();
+}
+
+async function downloadImage(dataUrl: string, filename: string) {
+  let objectUrl: string | null = null;
+  const link = document.createElement("a");
+
+  try {
+    const response = await fetch(dataUrl);
+    const blob = await response.blob();
+    objectUrl = URL.createObjectURL(blob);
+    link.href = objectUrl;
+  } catch {
+    link.href = dataUrl;
+  }
+
+  link.download = filename;
+  link.rel = "noopener";
+  link.style.display = "none";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  if (objectUrl) {
+    window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+  }
 }
 
 export default App;
