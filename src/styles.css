@@ -828,10 +828,10 @@ button {
 .share-portrait-frame {
   position: relative;
   align-self: end;
-  width: min(12.3rem, 68%);
+  width: min(10.7rem, 58%);
   aspect-ratio: 1.17;
   justify-self: center;
-  margin-top: 0.46rem;
+  margin-top: 0.22rem;
 }
 
 .share-moon {
@@ -1027,6 +1027,8 @@ button {
   z-index: 0;
   inset: 0;
   pointer-events: none;
+  overflow: hidden;
+  contain: paint;
 }
 
 .decor-record {
