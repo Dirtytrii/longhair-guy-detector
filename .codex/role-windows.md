@@ -55,7 +55,7 @@
 - 2026-07-01：总控接收架构/CTO 最终复核回调后作出发布确认：测试门禁、QA 门禁、运维预检、开发 + UI/Frontend 小修和架构复核均无 blocker；首发可以进入 Cloudflare Pages 发布链路。业务实现验收点为 `ac3ee5e`，本轮发布确认台账提交后以最新 `main` HEAD 作为远端发布目标；仓库仍相对 `origin/main` ahead，Cloudflare 只能构建已推送到 GitHub 的目标 commit；生产发布仍需用户明确授权远端推送 / 部署，部署后必须由运维执行线上只读验证。
 - 2026-07-01：用户明确回复“确认授权”，总控将发布状态推进为“已授权发布”。本轮授权范围按上一轮发布确认理解为：允许将本地 `main` 推送到 GitHub，并允许 Cloudflare Pages 按已预检配置进入生产发布链路；仍不得写入凭据、不得加入广告 / 统计 / 支付 / 模型 API，部署后需要线上只读验证。
 - 2026-07-01：总控在发布前复跑 `npm test -- --run`（3 个测试文件、12 项通过）、`npm run typecheck`、`npm run build`，均通过；随后执行 `git push origin main`，远端 `main` 已从 `c85734a` 更新到 `bce8250`。若 Cloudflare Pages 已连接 GitHub 仓库，应由远端提交触发生产构建；仍需拿到 production URL 后执行线上只读验证。
-- 2026-07-01：总控继续确认远端状态：最终台账提交 `48ba7dc` 已推送到 `origin/main`；`wrangler whoami` 显示当前机器未登录 Cloudflare，`wrangler pages project list` 在非交互环境因缺少 `CLOUDFLARE_API_TOKEN` 无法读取项目列表；未写入任何 Cloudflare 凭据。默认 `https://longhair-guy-detector.pages.dev` 在当前代理环境下 TLS 握手失败，不能作为生产可用性结论。下一步需要 Cloudflare 控制台已连接仓库自动部署，或由用户完成连接后提供 production URL，再做线上只读验证。
+- 2026-07-01：总控继续确认远端状态：`origin/main` 已包含首发发布链路相关提交；`wrangler whoami` 显示当前机器未登录 Cloudflare，`wrangler pages project list` 在非交互环境因缺少 `CLOUDFLARE_API_TOKEN` 无法读取项目列表；未写入任何 Cloudflare 凭据。默认 `https://longhair-guy-detector.pages.dev` 在当前代理环境下 TLS 握手失败，不能作为生产可用性结论。下一步需要 Cloudflare 控制台已连接仓库自动部署，或由用户完成连接后提供 production URL，再做线上只读验证。
 
 ## 压缩交接卡
 
