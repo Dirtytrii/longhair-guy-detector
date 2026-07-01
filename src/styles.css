@@ -1152,6 +1152,17 @@ button {
   text-align: center;
 }
 
+.download-fallback {
+  width: fit-content;
+  margin: 0.45rem auto 0;
+  display: block;
+  color: rgba(226, 220, 203, 0.72);
+  font-size: 0.82rem;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 0.22rem;
+}
+
 .notice {
   color: rgba(226, 220, 203, 0.62);
   font-size: 0.85rem;

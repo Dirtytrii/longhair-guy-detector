@@ -78,7 +78,8 @@ describe("mobile quiz flow", () => {
 
     expect(clickedAnchors[0]?.download).toBe("longhair-guy-OHBG.png");
     expect(clickedAnchors[0]?.href).toMatch(/^(data:image\/png|blob:)/);
-    expect(screen.getByText("已开始下载 1080x1350 PNG。")).toBeInTheDocument();
+    expect(screen.getByText("已生成 1080x1350 PNG。如未自动下载，可点备用保存链接。")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "备用保存链接" })).toHaveAttribute("download", "longhair-guy-OHBG.png");
 
     clickSpy.mockRestore();
   });

@@ -23,6 +23,10 @@ import {
 } from "./domain/scoring";
 
 type Phase = "home" | "quiz" | "loading" | "result";
+type DownloadInfo = {
+  href: string;
+  filename: string;
+};
 
 const AXIS_LABELS: Record<Axis, string> = {
   AO: "荒诞感",
@@ -55,6 +59,7 @@ function App() {
   const [showShare, setShowShare] = useState(false);
   const [notice, setNotice] = useState("");
   const [shareLineIndex, setShareLineIndex] = useState(0);
+  const [downloadInfo, setDownloadInfo] = useState<DownloadInfo | null>(null);
   const sharePanelRef = useRef<HTMLElement>(null);
   const shareCardRef = useRef<HTMLDivElement>(null);
 
@@ -92,6 +97,7 @@ function App() {
     setCurrentIndex(0);
     setShowShare(false);
     setShareLineIndex(0);
+    setDownloadInfo(null);
     clearResultUrl();
     setPhase("quiz");
   }
@@ -127,6 +133,7 @@ function App() {
 
   function regenerateShareLine() {
     setShareLineIndex((index) => index + 1);
+    setDownloadInfo(null);
   }
 
   async function saveShareCard() {
@@ -147,8 +154,10 @@ function App() {
           overflow: "hidden",
         },
       });
-      await downloadImage(dataUrl, `longhair-guy-${resultContent.code}.png`);
-      setNotice("已开始下载 1080x1350 PNG。");
+      const filename = `longhair-guy-${resultContent.code}.png`;
+      setDownloadInfo({ href: dataUrl, filename });
+      await downloadImage(dataUrl, filename);
+      setNotice("已生成 1080x1350 PNG。如未自动下载，可点备用保存链接。");
     } catch {
       setNotice("保存失败，请稍后重试。");
     }
@@ -194,6 +203,7 @@ function App() {
             notice={notice}
             sharePanelRef={sharePanelRef}
             shareCardRef={shareCardRef}
+            downloadInfo={downloadInfo}
             onShowShare={openSharePanel}
             onRegenerate={regenerateShareLine}
             onSave={saveShareCard}
@@ -326,6 +336,7 @@ function ResultScreen({
   notice,
   sharePanelRef,
   shareCardRef,
+  downloadInfo,
   onShowShare,
   onRegenerate,
   onSave,
@@ -338,6 +349,7 @@ function ResultScreen({
   notice: string;
   sharePanelRef: React.RefObject<HTMLElement>;
   shareCardRef: React.RefObject<HTMLDivElement>;
+  downloadInfo: DownloadInfo | null;
   onShowShare: () => void;
   onRegenerate: () => void;
   onSave: () => void;
@@ -427,6 +439,11 @@ function ResultScreen({
             </button>
           </div>
           {notice && <p className="notice">{notice}</p>}
+          {downloadInfo && (
+            <a className="download-fallback" href={downloadInfo.href} download={downloadInfo.filename}>
+              备用保存链接
+            </a>
+          )}
         </section>
       )}
     </div>
