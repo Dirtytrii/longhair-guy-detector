@@ -7,7 +7,7 @@ import {
   RotateCcw,
   Share2,
 } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 
 import { GLOBAL_COPY_POOL, getResultByCode } from "./data/results";
 import {
@@ -256,7 +256,7 @@ function QuizScreen({
         <div className="question-count" data-testid="quiz-count">
           {String(currentIndex + 1).padStart(2, "0")} / 24
         </div>
-        <div className="progress-track">
+        <div className="progress-track" style={{ "--progress-x": `${progress}%` } as CSSProperties}>
           <span style={{ width: `${progress}%` }} />
         </div>
       </header>

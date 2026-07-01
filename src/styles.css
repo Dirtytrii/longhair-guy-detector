@@ -3,8 +3,18 @@
 @tailwind utilities;
 
 :root {
-  color: #d6cebd;
-  background: #0d0c0a;
+  color: #e2dccb;
+  background: #0a0908;
+  --ink: #0a0908;
+  --panel: #15130f;
+  --paper: #e2dccb;
+  --paper-soft: #c9c0aa;
+  --muted: rgba(226, 220, 203, 0.64);
+  --red: #b5453d;
+  --red-deep: #762622;
+  --tape: #687052;
+  --line: rgba(183, 69, 61, 0.86);
+  --border: rgba(226, 220, 203, 0.28);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,9 +29,24 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(circle at 22% 10%, rgba(117, 88, 58, 0.13), transparent 34rem),
-    linear-gradient(180deg, #191713 0%, #0d0c0a 100%);
+    radial-gradient(circle at 18% 8%, rgba(108, 86, 55, 0.13), transparent 30rem),
+    radial-gradient(circle at 82% 16%, rgba(125, 43, 38, 0.12), transparent 24rem),
+    linear-gradient(180deg, #15130f 0%, #080807 100%);
   font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.2;
+  background-image:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 11px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px);
+  background-size: 34px 34px, 12px 15px;
 }
 
 button {
@@ -32,10 +57,11 @@ button {
   min-height: 100dvh;
   display: flex;
   justify-content: center;
+  overflow-x: hidden;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
-  background-size: 18px 18px;
+    linear-gradient(rgba(226, 220, 203, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(226, 220, 203, 0.012) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 .phone-stage {
@@ -43,10 +69,11 @@ button {
   width: min(100%, 430px);
   min-height: 100dvh;
   overflow: hidden;
+  isolation: isolate;
   background:
-    radial-gradient(circle at 50% 34%, rgba(178, 72, 60, 0.12), transparent 13rem),
-    radial-gradient(circle at 50% 77%, rgba(214, 206, 189, 0.08), transparent 10rem),
-    #15130f;
+    radial-gradient(circle at 54% 33%, rgba(181, 69, 61, 0.11), transparent 14rem),
+    radial-gradient(circle at 50% 78%, rgba(226, 220, 203, 0.065), transparent 11rem),
+    linear-gradient(180deg, #171510 0%, #0b0a08 100%);
   box-shadow: 0 0 90px rgba(0, 0, 0, 0.48);
 }
 
@@ -57,7 +84,7 @@ button {
   pointer-events: none;
   opacity: 0.31;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.19) 0 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.17) 0 1px, transparent 1px),
     radial-gradient(circle, rgba(0, 0, 0, 0.35) 0 1px, transparent 1px);
   background-position:
     0 0,
@@ -72,7 +99,9 @@ button {
   position: relative;
   z-index: 2;
   min-height: 100dvh;
-  padding: 3.25rem 1.75rem 2rem;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding: 3.15rem 1.45rem 2rem;
 }
 
 .home-screen {
@@ -80,7 +109,7 @@ button {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding-top: 10.4rem;
+  padding-top: 8.4rem;
 }
 
 .top-note,
@@ -91,11 +120,15 @@ button {
 
 .top-note {
   position: absolute;
-  top: 4.45rem;
-  left: 2.15rem;
-  width: 5.2rem;
-  transform: rotate(-1deg);
+  top: 4.15rem;
+  left: 1.55rem;
+  width: 6.3rem;
+  min-height: 3.15rem;
+  padding: 0.62rem 0.68rem;
+  transform: rotate(-4deg);
   color: #171510;
+  background: var(--tape);
+  clip-path: polygon(0 8%, 100% 0, 92% 100%, 7% 91%);
   font-size: 0.7rem;
   font-weight: 800;
   line-height: 1.45;
@@ -104,27 +137,28 @@ button {
 
 .side-slogan {
   position: absolute;
-  top: 4.2rem;
-  right: 2.45rem;
+  top: 4rem;
+  right: 1.55rem;
   writing-mode: vertical-rl;
-  color: rgba(214, 206, 189, 0.45);
+  color: rgba(226, 220, 203, 0.48);
   font-family: STSong, SimSun, serif;
-  font-size: 0.98rem;
+  font-size: 1rem;
   line-height: 1.55;
 }
 
 .title-lockup {
   position: relative;
   display: grid;
-  gap: 0.1rem;
+  gap: 0;
   font-family: STSong, SimSun, "Noto Serif SC", serif;
-  font-size: 4.7rem;
+  font-size: clamp(4.85rem, 22vw, 5.85rem);
   font-weight: 900;
-  line-height: 0.93;
-  color: #ded5c1;
+  line-height: 0.9;
+  color: var(--paper);
   text-shadow:
-    1px 0 rgba(180, 72, 61, 0.22),
-    -1px 0 rgba(20, 20, 20, 0.8);
+    1px 0 rgba(181, 69, 61, 0.34),
+    -1px 0 rgba(20, 20, 20, 0.92),
+    0 12px 26px rgba(0, 0, 0, 0.24);
 }
 
 .title-lockup span {
@@ -132,19 +166,20 @@ button {
 }
 
 .hero-claim {
-  margin: 1.7rem 0 0;
-  color: #b94b43;
+  margin: 1.35rem 0 0;
+  color: var(--red);
   font-family: STSong, SimSun, serif;
-  font-size: 1.56rem;
+  font-size: 1.6rem;
   font-weight: 800;
-  line-height: 1.52;
+  line-height: 1.48;
 }
 
 .hero-copy {
-  margin: 1.18rem 0 0;
-  color: rgba(214, 206, 189, 0.82);
-  font-size: 1rem;
-  line-height: 1.8;
+  margin: 0.85rem 0 0;
+  max-width: 17rem;
+  color: rgba(226, 220, 203, 0.72);
+  font-size: 0.95rem;
+  line-height: 1.72;
 }
 
 .primary-button,
@@ -158,20 +193,21 @@ button {
 
 .primary-button {
   width: 100%;
-  min-height: 4.42rem;
-  margin-top: 1.55rem;
+  min-height: 4.65rem;
+  margin-top: 1.45rem;
   padding: 0 1.55rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 1.2rem;
-  color: #f3ead7;
+  color: #f5edda;
   background:
-    linear-gradient(180deg, rgba(196, 79, 68, 0.95), rgba(139, 47, 42, 0.96)),
-    #b7483e;
+    linear-gradient(180deg, rgba(192, 76, 66, 0.97), rgba(115, 38, 34, 0.98)),
+    var(--red);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    0 22px 48px rgba(0, 0, 0, 0.36);
+    inset 0 -9px 0 rgba(0, 0, 0, 0.11),
+    0 22px 48px rgba(0, 0, 0, 0.4);
   font-family: STSong, SimSun, serif;
   font-size: 2rem;
   font-weight: 900;
@@ -189,13 +225,13 @@ button {
 }
 
 .link-button {
-  margin-top: 1.05rem;
+  margin-top: 0.9rem;
   padding: 0;
   border: 0;
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  color: #ded5c1;
+  color: var(--paper);
   background: transparent;
   font-family: STSong, SimSun, serif;
   font-size: 1.08rem;
@@ -213,19 +249,19 @@ button {
 }
 
 .fine-print {
-  margin: 1.05rem 0 0;
-  color: rgba(214, 206, 189, 0.56);
+  margin: 0.9rem 0 0;
+  color: rgba(226, 220, 203, 0.5);
   font-size: 0.88rem;
   line-height: 1.7;
 }
 
 .quiz-screen {
-  padding-top: 2.15rem;
+  padding-top: 2.25rem;
 }
 
 .quiz-header {
   display: grid;
-  gap: 0.95rem;
+  gap: 0.82rem;
   text-align: center;
 }
 
@@ -233,105 +269,129 @@ button {
   display: grid;
   gap: 0.15rem;
   font-family: STSong, SimSun, serif;
-  font-size: 1.42rem;
+  font-size: 1.52rem;
   font-weight: 800;
 }
 
 .brand-small small {
-  color: rgba(214, 206, 189, 0.55);
+  color: rgba(226, 220, 203, 0.52);
   font-family: "Courier New", monospace;
   font-size: 0.58rem;
 }
 
 .question-count {
-  color: #b7483e;
+  color: var(--red);
   font-family: Georgia, serif;
-  font-size: 1.65rem;
+  font-size: 1.92rem;
   font-style: italic;
 }
 
 .progress-track {
-  height: 0.18rem;
-  background: rgba(214, 206, 189, 0.24);
+  position: relative;
+  height: 0.16rem;
+  background: rgba(226, 220, 203, 0.22);
 }
 
 .progress-track span {
   display: block;
   height: 100%;
-  background: #b7483e;
+  background: var(--red);
+}
+
+.progress-track::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(var(--progress-x, 50%) - 0.5rem);
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid rgba(226, 220, 203, 0.64);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, transparent 0 0.26rem, rgba(181, 69, 61, 0.9) 0.28rem 0.34rem, transparent 0.36rem),
+    #15130f;
+  transform: translateY(-50%);
 }
 
 .question-block {
-  margin-top: 1.85rem;
+  margin-top: 1.72rem;
   text-align: center;
 }
 
 .question-kicker {
   margin: 0;
-  color: #b7483e;
+  color: var(--red);
   font-family: STSong, SimSun, serif;
-  font-size: 1.22rem;
+  font-size: 1.34rem;
   font-weight: 900;
 }
 
 .question-block h1 {
-  margin: 1rem 0 0;
-  color: #ded5c1;
+  margin: 0.78rem auto 0;
+  max-width: 20rem;
+  color: var(--paper);
   font-family: STSong, SimSun, serif;
-  font-size: 2.08rem;
+  font-size: clamp(2.28rem, 9.5vw, 2.85rem);
   font-weight: 900;
-  line-height: 1.3;
+  line-height: 1.22;
+  text-wrap: balance;
 }
 
 .question-subtitle {
-  margin: 0.75rem 0 0;
-  color: rgba(214, 206, 189, 0.6);
-  font-size: 0.98rem;
+  margin: 0.35rem 0 0;
+  color: rgba(226, 220, 203, 0.52);
+  font-size: 0.9rem;
 }
 
 .answer-list {
   display: grid;
-  gap: 0.55rem;
-  margin-top: 1.25rem;
+  gap: 0.72rem;
+  margin-top: 1.12rem;
 }
 
 .answer-card {
-  min-height: 3.38rem;
+  min-height: 4.15rem;
   width: 100%;
-  padding: 0 1.2rem;
+  padding: 0 1.15rem;
   display: grid;
-  grid-template-columns: 1.1rem 2.3rem 1fr;
+  grid-template-columns: 1.06rem 2.5rem 1fr;
   align-items: center;
-  color: #ded5c1;
-  background: rgba(28, 26, 22, 0.76);
-  box-shadow: inset 0 0 0 1px rgba(214, 206, 189, 0.08);
+  color: var(--paper);
+  background:
+    linear-gradient(180deg, rgba(36, 33, 27, 0.72), rgba(18, 16, 13, 0.78)),
+    rgba(28, 26, 22, 0.78);
+  box-shadow:
+    inset 0 0 0 1px rgba(226, 220, 203, 0.08),
+    0 10px 26px rgba(0, 0, 0, 0.22);
   text-align: left;
   font-family: STSong, SimSun, serif;
-  font-size: 1.14rem;
+  font-size: 1.38rem;
   font-weight: 800;
 }
 
 .answer-card.selected {
   border-color: rgba(183, 72, 62, 0.92);
-  background: rgba(183, 72, 62, 0.16);
+  background:
+    linear-gradient(180deg, rgba(181, 69, 61, 0.18), rgba(18, 16, 13, 0.78)),
+    rgba(183, 72, 62, 0.16);
 }
 
 .radio-dot {
   width: 0.86rem;
   height: 0.86rem;
-  border: 1px solid rgba(214, 206, 189, 0.65);
+  border: 1px solid rgba(226, 220, 203, 0.68);
   border-radius: 999px;
 }
 
 .answer-card.selected .radio-dot {
-  border-color: #b7483e;
-  background: #b7483e;
+  border-color: var(--red);
+  background: var(--red);
 }
 
 .answer-index {
-  color: #b7483e;
+  color: var(--red);
   font-family: Georgia, serif;
-  font-size: 1.58rem;
+  font-size: 1.72rem;
   font-style: italic;
 }
 
@@ -340,8 +400,8 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-top: 1.1rem;
-  color: rgba(214, 206, 189, 0.46);
+  margin-top: 1rem;
+  color: rgba(226, 220, 203, 0.48);
   font-size: 0.88rem;
 }
 
@@ -351,7 +411,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  color: #ded5c1;
+  color: var(--paper);
   background: rgba(13, 12, 10, 0.5);
 }
 
