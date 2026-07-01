@@ -783,7 +783,7 @@ button {
   position: absolute;
   width: 9rem;
   height: 9rem;
-  right: -2.2rem;
+  right: 0;
   top: 1.55rem;
   border: 1rem solid rgba(0, 0, 0, 0.36);
   border-radius: 999px;
