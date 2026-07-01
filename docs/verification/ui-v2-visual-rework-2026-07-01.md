@@ -95,3 +95,33 @@ C:\Users\12156\AppData\Local\Temp\longhair-guy-detector-ui-v2-2026-07-01\playwri
 ## 结论
 
 本地 UI v2 最小可验收切片通过：可运行、可构建、可截图验收、可保存 1080x1350 分享卡 PNG。下一步需要总控 / 用户决定是否推送远端并触发 Cloudflare Pages 更新，或先派架构 / QA 做 v2 视觉复核。
+
+## 总控推送后线上复验补充
+
+总控在远端 `main` 更新到 `57a7096` 后，对默认 Cloudflare Pages 地址做只读复验：
+
+- `https://longhair-guy-detector.pages.dev/`：HTTP 200。
+- 远端 HTML 已引用 v2 构建资产：`/assets/index-B30k-9ir.js`、`/assets/index-BZNLbraq.css`。
+- 远端 JS 中可检出 `/assets/result-portrait-v2.png` 与 `/assets/share-card-portrait-v2.png`。
+- 两张 v2 静态画像资产直连均返回 HTTP 200，`Content-Type: image/png`。
+
+线上 Playwright 390x844 烟测发现：
+
+- 首页、答题页、结果页、分享页均无页面级横向溢出，`document.scrollWidth === document.clientWidth`。
+- console warning / error：0。
+- pageerror：0。
+- 结果页可见 `result-portrait-v2.png`。
+- 分享卡可见 `share-card-portrait-v2.png`。
+- 但分享卡内部存在非页面级溢出：`.share-card.scrollWidth` 为 367，`.share-card.clientWidth` 为 331。
+
+根因与修复：
+
+- 根因：`.share-card::before` 右侧唱片环使用 `right: -2.2rem`，视觉上被 `overflow: hidden` 裁掉，但仍会被 Chrome 计入 `.share-card.scrollWidth`。
+- 修复：将该伪元素收回卡片内部，避免装饰层撑开分享卡内部滚动宽度。
+
+修复后本地复验：
+
+- 命令：`npm test -- --run`、`npm run typecheck`、`npm run build` 均通过。
+- 截图目录：`C:\Users\12156\AppData\Local\Temp\longhair-guy-detector-share-overflow-fix-2026-07-01`
+- 390x844：`documentScrollWidth === documentClientWidth === 390`；`shareCardScrollWidth === shareCardClientWidth === 331`；console/pageerror 为 0。
+- 430x932：`documentScrollWidth === documentClientWidth === 430`；`shareCardScrollWidth === shareCardClientWidth === 358`；console/pageerror 为 0。
