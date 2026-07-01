@@ -125,3 +125,28 @@ C:\Users\12156\AppData\Local\Temp\longhair-guy-detector-ui-v2-2026-07-01\playwri
 - 截图目录：`C:\Users\12156\AppData\Local\Temp\longhair-guy-detector-share-overflow-fix-2026-07-01`
 - 390x844：`documentScrollWidth === documentClientWidth === 390`；`shareCardScrollWidth === shareCardClientWidth === 331`；console/pageerror 为 0。
 - 430x932：`documentScrollWidth === documentClientWidth === 430`；`shareCardScrollWidth === shareCardClientWidth === 358`；console/pageerror 为 0。
+
+## 分享卡小修最终线上复验
+
+总控已将分享卡内部溢出小修推送到远端 `main`，远端 HEAD 为 `655d49f`。
+
+Cloudflare Pages 默认地址已切到小修后的构建资产：
+
+- `/assets/index-BeHhzWib.css`
+- `/assets/index-MBr985ud.js`
+
+最终线上 Playwright 复验：
+
+- 复验地址：`https://longhair-guy-detector.pages.dev/`
+- 截图目录：`C:\Users\12156\AppData\Local\Temp\longhair-guy-detector-online-v2-final-2026-07-01`
+- 结果文件：`C:\Users\12156\AppData\Local\Temp\longhair-guy-detector-online-v2-final-2026-07-01\online-v2-final-results.json`
+
+| 页面 | 视口 | 页面横向溢出 | 分享卡内部溢出 | 画像资产 | console/pageerror |
+| --- | --- | --- | --- | --- | --- |
+| 首页 | 375x812 | 通过：375 = 375 | 不适用 | 不适用 | 0 / 0 |
+| 答题页 | 390x844 | 通过：390 = 390 | 不适用 | 不适用 | 0 / 0 |
+| 结果页 | 390x844 | 通过：390 = 390 | 不适用 | `result-portrait-v2.png` 可见 | 0 / 0 |
+| 分享页 | 390x844 | 通过：390 = 390 | 通过：331 = 331 | `share-card-portrait-v2.png` 可见 | 0 / 0 |
+| 分享页 | 430x932 | 通过：430 = 430 | 通过：358 = 358 | `share-card-portrait-v2.png` 可见 | 0 / 0 |
+
+结论：UI v2 已在 Cloudflare Pages 默认生产地址完成线上只读验证；分享卡内部溢出小修生效。
