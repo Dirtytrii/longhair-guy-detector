@@ -25,10 +25,10 @@ import {
 type Phase = "home" | "quiz" | "loading" | "result";
 
 const AXIS_LABELS: Record<Axis, string> = {
-  AO: "荒诞 / 秩序",
-  TH: "真相 / 安顿",
-  DB: "解构 / 建构",
-  FG: "自由 / 共同体",
+  AO: "荒诞感",
+  TH: "真相倾向",
+  DB: "解构倾向",
+  FG: "共同体",
 };
 
 const LOADING_LINES = [
@@ -36,6 +36,9 @@ const LOADING_LINES = [
   "正在核实你是真冷还是装冷…",
   "正在判断你到底是看透了，还是只是不想参与…",
 ];
+
+const RESULT_PORTRAIT_SRC = "/assets/result-portrait-v2.png";
+const SHARE_PORTRAIT_SRC = "/assets/share-card-portrait-v2.png";
 
 function App() {
   const sharedCode = getSharedResultCode();
@@ -49,6 +52,7 @@ function App() {
   const [showAbout, setShowAbout] = useState(false);
   const [showShare, setShowShare] = useState(false);
   const [notice, setNotice] = useState("");
+  const [shareLineIndex, setShareLineIndex] = useState(0);
   const sharePanelRef = useRef<HTMLElement>(null);
   const shareCardRef = useRef<HTMLDivElement>(null);
 
@@ -56,8 +60,9 @@ function App() {
   const resultContent = scoreResult ? getResultByCode(scoreResult.code) : null;
   const shareLine = useMemo(() => {
     const source = resultContent?.copyPool ?? GLOBAL_COPY_POOL;
-    return source[Math.abs((scoreResult?.code.charCodeAt(0) ?? 0) + currentIndex) % source.length];
-  }, [currentIndex, resultContent?.copyPool, scoreResult?.code]);
+    const seed = (scoreResult?.code.charCodeAt(0) ?? 0) + currentIndex + shareLineIndex;
+    return source[Math.abs(seed) % source.length];
+  }, [currentIndex, resultContent?.copyPool, scoreResult?.code, shareLineIndex]);
 
   useEffect(() => {
     if (!showShare) return undefined;
@@ -84,6 +89,7 @@ function App() {
     setScoreResult(null);
     setCurrentIndex(0);
     setShowShare(false);
+    setShareLineIndex(0);
     clearResultUrl();
     setPhase("quiz");
   }
@@ -102,6 +108,7 @@ function App() {
       window.setTimeout(() => {
         const nextResult = scoreAnswers(nextAnswers);
         setScoreResult(nextResult);
+        setShareLineIndex(0);
         setPhase("result");
         setResultUrl(nextResult.code);
       }, 950);
@@ -114,6 +121,10 @@ function App() {
 
   function openSharePanel() {
     setShowShare(true);
+  }
+
+  function regenerateShareLine() {
+    setShareLineIndex((index) => index + 1);
   }
 
   async function saveShareCard() {
@@ -185,6 +196,7 @@ function App() {
             sharePanelRef={sharePanelRef}
             shareCardRef={shareCardRef}
             onShowShare={openSharePanel}
+            onRegenerate={regenerateShareLine}
             onSave={saveShareCard}
             onCopy={copyResultLink}
             onRestart={startQuiz}
@@ -316,6 +328,7 @@ function ResultScreen({
   sharePanelRef,
   shareCardRef,
   onShowShare,
+  onRegenerate,
   onSave,
   onCopy,
   onRestart,
@@ -327,6 +340,7 @@ function ResultScreen({
   sharePanelRef: React.RefObject<HTMLElement>;
   shareCardRef: React.RefObject<HTMLDivElement>;
   onShowShare: () => void;
+  onRegenerate: () => void;
   onSave: () => void;
   onCopy: () => void;
   onRestart: () => void;
@@ -335,34 +349,48 @@ function ResultScreen({
 
   return (
     <div className="screen result-screen" data-testid="result-screen">
-      <p className="result-prefix">你的精神长发男类型是：</p>
+      <button className="result-back-button" type="button" aria-label="返回重新测试" onClick={onRestart}>
+        <ChevronLeft aria-hidden="true" size={22} />
+      </button>
+      <p className="result-prefix">→ 鉴定完成 ←</p>
       <h1>{result.shortName}</h1>
-      <p className="scene-name">{result.sceneName}</p>
       <p className="result-tagline">{result.tagline}</p>
+      <p className="result-code">
+        {scoreResult.code} / {result.sceneName}
+      </p>
 
-      <AxisBars scoreResult={scoreResult} />
-
-      <section className="result-section">
-        <h2>判词</h2>
-        <p>{result.description}</p>
+      <section className="result-hero-grid" aria-label="结果画像与四轴评分">
+        <div className="portrait-collage" aria-hidden="true">
+          <span className="portrait-scrap top" />
+          <img src={RESULT_PORTRAIT_SRC} alt="" />
+          <span className="portrait-scrap bottom" />
+          <span className="portrait-thread" />
+        </div>
+        <AxisBars scoreResult={scoreResult} />
       </section>
 
-      <section className="result-section">
-        <h2>危险倾向</h2>
-        <ul>
-          {result.danger.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
+      <section className="result-copy-grid">
+        <article className="result-section">
+          <h2>你的视角</h2>
+          <p>{result.description}</p>
+        </article>
+        <article className="result-section danger-note">
+          <h2>危险倾向</h2>
+          <ul>
+            {result.danger.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </article>
       </section>
 
-      <section className="result-grid">
+      <section className="reading-strip">
         <div>
-          <h2>精神同伙</h2>
+          <span>精神同伙</span>
           <p>{result.companions.join(" / ")}</p>
         </div>
         <div>
-          <h2>推荐阅读</h2>
+          <span>推荐阅读</span>
           <p>{result.readings.join(" / ")}</p>
         </div>
       </section>
@@ -380,12 +408,19 @@ function ResultScreen({
 
       {showShare && (
         <section className="share-panel" data-testid="share-panel" aria-label="分享卡预览" ref={sharePanelRef}>
-          <h2>分享卡预览</h2>
-          <ShareCard refObject={shareCardRef} code={scoreResult.code} shareLine={shareLine} />
+          <div className="share-panel-heading">
+            <p>SHARE POSTER</p>
+            <h2>分享卡已生成</h2>
+          </div>
+          <ShareCard refObject={shareCardRef} scoreResult={scoreResult} shareLine={shareLine} />
           <div className="action-row compact">
             <button className="primary-button small" data-testid="save-share-card" type="button" onClick={onSave}>
               <Download aria-hidden="true" size={19} />
-              <span>保存 PNG</span>
+              <span>保存图片</span>
+            </button>
+            <button className="ghost-button" type="button" onClick={onRegenerate}>
+              <RotateCcw aria-hidden="true" size={18} />
+              <span>重新生成文案</span>
             </button>
             <button className="ghost-button" type="button" onClick={onCopy}>
               <Copy aria-hidden="true" size={19} />
@@ -423,26 +458,46 @@ function AxisBars({ scoreResult }: { scoreResult: NonNullable<ReturnType<typeof 
 
 function ShareCard({
   refObject,
-  code,
+  scoreResult,
   shareLine,
 }: {
   refObject: React.RefObject<HTMLDivElement>;
-  code: ResultCode;
+  scoreResult: NonNullable<ReturnType<typeof scoreAnswers>>;
   shareLine: string;
 }) {
-  const result = getResultByCode(code);
+  const result = getResultByCode(scoreResult.code);
 
   return (
     <div className="share-card" ref={refObject}>
       <div className="share-card-noise" aria-hidden="true" />
+      <span className="share-card-tape" aria-hidden="true">VISION IS A KNOT.</span>
       <p className="share-card-label">LONG HAIR GUY DETECTOR</p>
-      <h3>我是</h3>
-      <h2>{result.shortName}</h2>
-      <p className="share-card-scene">{result.sceneName}</p>
-      <p className="share-card-line">{shareLine}</p>
+      <div className="share-portrait-frame" aria-hidden="true">
+        <span className="share-moon" />
+        <img src={SHARE_PORTRAIT_SRC} alt="" />
+        <span className="share-red-thread" />
+      </div>
+      <div className="share-card-copy">
+        <p className="share-card-kicker">我是</p>
+        <h2>{result.shortName}</h2>
+        <p className="share-card-scene">{result.sceneName}</p>
+        <p className="share-card-line">{shareLine}</p>
+      </div>
+      <div className="share-score-grid" aria-label="四轴分数">
+        {(Object.keys(scoreResult.axisScores) as Axis[]).map((axis) => {
+          const axisScore = scoreResult.axisScores[axis];
+          return (
+            <div key={axis}>
+              <span>{AXIS_LABELS[axis]}</span>
+              <strong>{axisScore.pole}</strong>
+              <em>{axisScore.strength}</em>
+            </div>
+          );
+        })}
+      </div>
       <div className="share-card-footer">
-        <span>{code}</span>
-        <span>娱乐测试，不治内耗</span>
+        <span>{scoreResult.code}</span>
+        <span>娱乐测试，不构成人格诊断</span>
       </div>
     </div>
   );

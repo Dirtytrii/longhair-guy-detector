@@ -21,12 +21,13 @@ describe("mobile quiz flow", () => {
     }
 
     expect(await screen.findByText("人间烟火长发男", {}, { timeout: 5000 })).toBeInTheDocument();
-    expect(screen.getByText("把烟火气过成地下艺术的长发男")).toBeInTheDocument();
+    expect(screen.getByText(/把烟火气过成地下艺术的长发男/)).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: /生成图卡/ }));
 
-    expect(screen.getByText("分享卡预览")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /保存 PNG/ })).toBeInTheDocument();
+    expect(screen.getByText("分享卡已生成")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /保存图片/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /重新生成文案/ })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /复制结果链接/ })).toBeInTheDocument();
   }, 15000);
 
