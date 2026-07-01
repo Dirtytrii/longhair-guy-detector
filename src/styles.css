@@ -331,7 +331,7 @@ button {
   max-width: 20rem;
   color: var(--paper);
   font-family: STSong, SimSun, serif;
-  font-size: clamp(2.28rem, 9.5vw, 2.85rem);
+  font-size: clamp(2.18rem, 9.2vw, 2.72rem);
   font-weight: 900;
   line-height: 1.22;
   text-wrap: balance;
@@ -345,12 +345,12 @@ button {
 
 .answer-list {
   display: grid;
-  gap: 0.72rem;
+  gap: 0.62rem;
   margin-top: 1.12rem;
 }
 
 .answer-card {
-  min-height: 4.15rem;
+  min-height: 3.86rem;
   width: 100%;
   padding: 0 1.15rem;
   display: grid;
@@ -1168,7 +1168,7 @@ button {
   }
 
   .answer-card {
-    min-height: 3.82rem;
+    min-height: 3.62rem;
     font-size: 1.24rem;
   }
 
