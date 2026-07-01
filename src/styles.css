@@ -105,11 +105,22 @@ button {
 }
 
 .home-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding-top: 8.4rem;
+  display: block;
+  min-height: 100dvh;
+  padding: 0;
+  background: url("/assets/home-poster-v3.png") center top / 100% 100% no-repeat;
+}
+
+.phase-home.phone-stage::before,
+.phase-home .decorations,
+.home-screen .top-note,
+.home-screen .side-slogan,
+.home-screen .title-lockup,
+.home-screen .thread-mark,
+.home-screen .hero-claim,
+.home-screen .hero-copy,
+.home-screen .fine-print {
+  display: none;
 }
 
 .top-note,
@@ -237,6 +248,52 @@ button {
   font-size: 1.08rem;
   text-decoration: underline;
   text-underline-offset: 0.48rem;
+}
+
+.home-start-button,
+.home-about-button {
+  position: absolute;
+  left: 50%;
+  z-index: 3;
+  overflow: hidden;
+  color: transparent;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  transform: translateX(-50%);
+}
+
+.home-start-button {
+  top: 69.9%;
+  width: 74.9%;
+  min-height: 8.55%;
+  margin: 0;
+  padding: 0;
+}
+
+.home-start-button svg,
+.home-about-button .mini-disc {
+  opacity: 0;
+}
+
+.home-about-button {
+  top: 82%;
+  width: 47%;
+  height: 4.8%;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+.home-about-button span:last-child {
+  color: transparent;
+}
+
+.home-start-button:focus-visible,
+.home-about-button:focus-visible {
+  outline: 2px solid rgba(226, 220, 203, 0.82);
+  outline-offset: 0.18rem;
+  border-radius: 8px;
 }
 
 .mini-disc {
@@ -1152,7 +1209,7 @@ button {
   }
 
   .home-screen {
-    padding-top: 7.85rem;
+    padding: 0;
   }
 
   .title-lockup {

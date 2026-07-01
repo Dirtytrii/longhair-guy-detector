@@ -227,11 +227,11 @@ function HomeScreen({ onStart, onAbout }: { onStart: () => void; onAbout: () => 
       <p className="hero-copy">
         24 个问题，测出你此刻更常使用哪种理解世界的视角。
       </p>
-      <button className="primary-button" data-testid="start-quiz" type="button" onClick={onStart}>
+      <button className="primary-button home-start-button" data-testid="start-quiz" type="button" onClick={onStart}>
         <span>开始鉴定</span>
         <ArrowRight aria-hidden="true" size={30} />
       </button>
-      <button className="link-button" type="button" onClick={onAbout}>
+      <button className="link-button home-about-button" type="button" onClick={onAbout}>
         <span className="mini-disc" aria-hidden="true" />
         <span>先看看这是什么</span>
       </button>
