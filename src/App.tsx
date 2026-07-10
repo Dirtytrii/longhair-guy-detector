@@ -295,6 +295,7 @@ function QuizScreen({
             className={option.value === selectedValue ? "answer-card selected" : "answer-card"}
             key={option.value}
             type="button"
+            aria-pressed={option.value === selectedValue}
             onClick={() => onAnswer(option.value)}
           >
             <span className="radio-dot" aria-hidden="true" />

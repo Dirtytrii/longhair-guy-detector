@@ -40,6 +40,18 @@ describe("mobile quiz flow", () => {
     expect(screen.getByRole("button", { name: /复制结果链接/ })).toBeInTheDocument();
   }, 15000);
 
+  it("exposes the selected answer while moving to the next question", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: /开始鉴定/ }));
+    const npcAnswer = screen.getByRole("button", { name: /NPC/ });
+
+    expect(npcAnswer).toHaveAttribute("aria-pressed", "false");
+    await user.click(npcAnswer);
+    expect(npcAnswer).toHaveAttribute("aria-pressed", "true");
+  });
+
   it("clears the shared result URL when restarting from a direct result link", async () => {
     const user = userEvent.setup();
     window.history.replaceState(null, "", "/?result=OHBG");
