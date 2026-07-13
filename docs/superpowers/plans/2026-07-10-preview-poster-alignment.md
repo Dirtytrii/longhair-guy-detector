@@ -23,7 +23,7 @@
 - 修改：`src/App.test.tsx`
 - 修改：`src/App.tsx`
 
-- [ ] **步骤 1：编写失败的测试**
+- [x] **步骤 1：编写失败的测试**
 
 在 `describe("mobile quiz flow")` 内新增：
 
@@ -41,13 +41,13 @@ it("exposes the selected answer while moving to the next question", async () => 
 });
 ```
 
-- [ ] **步骤 2：运行测试验证失败**
+- [x] **步骤 2：运行测试验证失败**
 
 运行：`npm test -- --run src/App.test.tsx`
 
 预期：FAIL，断言显示答案按钮缺少 `aria-pressed="false"`。
 
-- [ ] **步骤 3：编写最少实现代码**
+- [x] **步骤 3：编写最少实现代码**
 
 在 `QuizScreen` 的答案按钮上添加与现有 `selectedValue` 一致的状态：
 
@@ -55,13 +55,13 @@ it("exposes the selected answer while moving to the next question", async () => 
 aria-pressed={option.value === selectedValue}
 ```
 
-- [ ] **步骤 4：运行测试验证通过**
+- [x] **步骤 4：运行测试验证通过**
 
 运行：`npm test -- --run src/App.test.tsx`
 
 预期：PASS，所有 `mobile quiz flow` 测试通过。
 
-- [ ] **步骤 5：提交交互状态改动**
+- [x] **步骤 5：提交交互状态改动**
 
 ```powershell
 git add src/App.tsx src/App.test.tsx
@@ -73,7 +73,7 @@ git commit -m "feat(答题页): 公开答案选中状态"
 **文件：**
 - 修改：`src/styles.css`
 
-- [ ] **步骤 1：确认行为回归测试仍为绿灯**
+- [x] **步骤 1：确认行为回归测试仍为绿灯**
 
 运行：`npm test -- --run src/App.test.tsx`
 
@@ -81,7 +81,7 @@ git commit -m "feat(答题页): 公开答案选中状态"
 已有完整答题、结果与分享交互测试。CSS 空间布局不依赖可由 jsdom 可靠模拟的几何信息，
 由任务 3 的真实浏览器截图进行回归验证。
 
-- [ ] **步骤 2：编写最少样式实现**
+- [x] **步骤 2：编写最少样式实现**
 
 将首页、答题页、结果页的背景声明从：
 
@@ -104,13 +104,13 @@ background-size: 100% auto;
 `::before` 的不透明度降到可见海报纹理但仍可读文字的水平。答案卡的默认背景改为
 `rgba(18, 16, 13, 0.62)`，选中态同时设置 `box-shadow: 0 0 0 2px rgba(181, 69, 61, 0.28)`。
 
-- [ ] **步骤 3：运行交互测试验证通过**
+- [x] **步骤 3：运行交互测试验证通过**
 
 运行：`npm test -- --run src/App.test.tsx`
 
 预期：PASS，首页两个海报热区和原有完整答题流程均可访问。
 
-- [ ] **步骤 4：提交海报对齐样式**
+- [x] **步骤 4：提交海报对齐样式**
 
 ```powershell
 git add src/styles.css src/App.test.tsx
@@ -122,13 +122,13 @@ git commit -m "style(UI): 按预览海报比例收敛页面版式"
 **文件：**
 - 创建：`docs/verification/ui-preview-alignment-2026-07-10.md`
 
-- [ ] **步骤 1：启动本地预览**
+- [x] **步骤 1：启动本地预览**
 
 运行：`npm run dev -- --host 127.0.0.1`
 
 预期：Vite 输出本地 HTTP 地址且无启动错误。
 
-- [ ] **步骤 2：执行浏览器验收**
+- [x] **步骤 2：执行浏览器验收**
 
 按 375 × 812、390 × 844、430 × 932 和 1280 × 900 依次检查：
 
@@ -139,7 +139,7 @@ git commit -m "style(UI): 按预览海报比例收敛页面版式"
 
 每个移动端视口需验证无横向滚动、无文本裁切、无元素重叠；桌面需验证 430px 电话画布居中。
 
-- [ ] **步骤 3：执行自动化质量门禁**
+- [x] **步骤 3：执行自动化质量门禁**
 
 运行：
 
@@ -151,11 +151,11 @@ npm run build
 
 预期：三个命令均以退出码 0 完成。
 
-- [ ] **步骤 4：记录验收证据**
+- [x] **步骤 4：记录验收证据**
 
 创建验证文档，记录浏览器路径、四个视口、控制台结果、截图路径、通过的交互和剩余风险。
 
-- [ ] **步骤 5：提交验证记录**
+- [x] **步骤 5：提交验证记录**
 
 ```powershell
 git add docs/verification/ui-preview-alignment-2026-07-10.md
