@@ -300,6 +300,16 @@ button {
   border-radius: 8px;
 }
 
+.home-start-button:hover,
+.home-start-button:focus-visible {
+  box-shadow: 0 0 0 3px rgba(226, 220, 203, 0.22), 0 0 28px rgba(181, 69, 61, 0.42);
+}
+
+.home-about-button:hover,
+.home-about-button:focus-visible {
+  background: rgba(226, 220, 203, 0.06);
+}
+
 .mini-disc {
   width: 1.9rem;
   height: 1.9rem;
@@ -329,9 +339,9 @@ button {
   border-radius: 22px;
   pointer-events: none;
   background:
-    radial-gradient(circle at 68% 20%, rgba(181, 69, 61, 0.1), transparent 9rem),
-    linear-gradient(180deg, rgba(13, 12, 10, 0.985), rgba(13, 12, 10, 0.94));
-  box-shadow: 0 0 42px rgba(8, 7, 6, 0.76);
+    radial-gradient(circle at 68% 20%, rgba(181, 69, 61, 0.11), transparent 9rem),
+    linear-gradient(180deg, #0d0c0a, #100e0c);
+  box-shadow: 0 0 42px rgba(8, 7, 6, 0.72);
 }
 
 .quiz-screen > * {
@@ -446,8 +456,8 @@ button {
   border: 1px solid rgba(226, 220, 203, 0.3);
   border-radius: 12px;
   background:
-    linear-gradient(180deg, rgba(36, 33, 27, 0.62), rgba(18, 16, 13, 0.72)),
-    rgba(15, 14, 12, 0.72);
+    linear-gradient(180deg, rgba(36, 33, 27, 0.48), rgba(18, 16, 13, 0.58)),
+    rgba(15, 14, 12, 0.58);
   box-shadow:
     inset 0 0 0 1px rgba(226, 220, 203, 0.05),
     0 10px 30px rgba(0, 0, 0, 0.28);
@@ -460,8 +470,12 @@ button {
 .answer-card.selected {
   border-color: rgba(183, 72, 62, 0.92);
   background:
-    linear-gradient(180deg, rgba(181, 69, 61, 0.18), rgba(18, 16, 13, 0.78)),
-    rgba(183, 72, 62, 0.16);
+    linear-gradient(180deg, rgba(181, 69, 61, 0.28), rgba(18, 16, 13, 0.64)),
+    rgba(183, 72, 62, 0.24);
+  box-shadow:
+    inset 0 0 0 1px rgba(226, 220, 203, 0.1),
+    0 0 0 2px rgba(181, 69, 61, 0.24),
+    0 10px 30px rgba(0, 0, 0, 0.28);
 }
 
 .radio-dot {
@@ -557,7 +571,7 @@ button {
   border-radius: 18px;
   pointer-events: none;
   background:
-    linear-gradient(180deg, rgba(12, 11, 9, 0.94), rgba(12, 11, 9, 0.84) 54%, rgba(12, 11, 9, 0.92)),
+    linear-gradient(180deg, #0c0b09, #100e0b 54%, #0c0b09),
     radial-gradient(circle at 28% 30%, rgba(226, 220, 203, 0.06), transparent 10rem);
   filter: blur(0.1px);
 }
@@ -873,7 +887,7 @@ button {
   pointer-events: none;
   background:
     radial-gradient(circle at 50% 24%, rgba(226, 220, 203, 0.08), transparent 8rem),
-    linear-gradient(180deg, rgba(13, 12, 10, 0.9), rgba(13, 12, 10, 0.82));
+    linear-gradient(180deg, #0d0c0a, #100e0c);
   box-shadow: 0 0 32px rgba(8, 7, 6, 0.72);
 }
 
@@ -1343,6 +1357,103 @@ button {
   }
 }
 
+@media (max-width: 430px) {
+  .quiz-screen {
+    padding-top: 3.65rem;
+    padding-bottom: 1.4rem;
+  }
+
+  .quiz-screen::before {
+    inset: 5.75rem 0.9rem 1rem;
+  }
+
+  .quiz-header {
+    gap: 0.55rem;
+  }
+
+  .question-count {
+    margin-top: 1rem;
+    font-size: 1.7rem;
+  }
+
+  .question-block {
+    margin-top: 0.75rem;
+  }
+
+  .question-kicker {
+    font-size: 1.12rem;
+  }
+
+  .question-block h1 {
+    margin-top: 0.62rem;
+    font-size: 1.74rem;
+    line-height: 1.12;
+  }
+
+  .thread-mark.compact {
+    height: 2rem;
+    margin-top: 0.05rem;
+  }
+
+  .question-subtitle {
+    margin-top: 0.16rem;
+    font-size: 0.8rem;
+  }
+
+  .answer-list {
+    gap: 0.34rem;
+    margin-top: 0.65rem;
+  }
+
+  .answer-card {
+    min-height: 3.1rem;
+    padding-inline: 1rem;
+    font-size: 1.12rem;
+  }
+
+  .quiz-footer {
+    margin-top: 0.8rem;
+    font-size: 0.78rem;
+  }
+
+  .result-screen {
+    padding-top: 4.3rem;
+    padding-bottom: 2.2rem;
+  }
+
+  .result-screen::before {
+    inset: 3.65rem 0.9rem 1.1rem;
+  }
+
+  .result-screen h1 {
+    max-width: 23rem;
+    font-size: 3.05rem;
+    line-height: 0.96;
+  }
+
+  .result-tagline {
+    margin-top: 0.68rem;
+    font-size: 1.24rem;
+  }
+
+  .result-code {
+    margin-top: 0.5rem;
+  }
+
+  .result-hero-grid,
+  .result-copy-grid {
+    margin-top: 0.9rem;
+  }
+
+  .reading-strip {
+    margin-top: 0.9rem;
+  }
+
+  .action-row {
+    margin-top: 1rem;
+  }
+}
+
 @media (max-width: 380px) {
   .screen {
     padding-left: 1.25rem;
@@ -1359,19 +1470,6 @@ button {
 
   .hero-claim {
     font-size: 1.42rem;
-  }
-
-  .question-block h1 {
-    font-size: 2.18rem;
-  }
-
-  .answer-card {
-    min-height: 3.62rem;
-    font-size: 1.24rem;
-  }
-
-  .result-screen h1 {
-    font-size: 3.12rem;
   }
 
   .result-hero-grid {
